@@ -1,11 +1,23 @@
+variable "yc_resource_folder" {
+  type = string
+  description = "Resource manager folder for instance group"
+  default = "default"
+}
+
 variable "yc_image_id" {
   type        = string
   description = "Yandex cloud image id"
 }
 
-variable "vm_name" {
+variable "vm_image_name" {
   type        = string
-  description = "Name of the virtual machine"
+  description = "Name used image"
+  default  = "nginx"
+}
+
+variable "vm_image_tag" {
+  type        = string
+  description = "Tag for group image"
 }
 
 variable "cidr_blocks" {
@@ -51,10 +63,4 @@ variable "vm_count" {
     type = number
     description = "VM total"
     default = 3 
-}
-
-variable "image_family" {
-    type = string
-    description = "Cloud image family"
-    default = "centos-7"
 }

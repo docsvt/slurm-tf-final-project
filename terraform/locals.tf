@@ -1,3 +1,3 @@
 locals {
-    prefix = "slurm-"
+    prefix = "slurm"
 }
