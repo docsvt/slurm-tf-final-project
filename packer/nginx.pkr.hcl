@@ -34,7 +34,8 @@ build {
 
   provisioner "ansible" {
     playbook_file = "./ansible/playbook.yml"
-    ansible_env_vars = [ "ANSIBLE_ROLES_PATH=../ansible", "ANSIBLE_HOST_KEY_CHECKING=False" ]    
+    ansible_env_vars = [ "ANSIBLE_ROLES_PATH=../ansible", "ANSIBLE_HOST_KEY_CHECKING=False",  "ANSIBLE_SCP_EXTRA_ARGS='-O'" ] 
+    groups           = ["desktop"]   
   }
 
 }
