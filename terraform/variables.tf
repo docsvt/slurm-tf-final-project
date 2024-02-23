@@ -15,7 +15,7 @@ variable "vm_image_name" {
   default  = "nginx"
 }
 
-variable "vm_image_tag" {
+variable "image_tag" {
   type        = string
   description = "Tag for group image"
 }
@@ -59,8 +59,15 @@ variable "nlb_healthcheck" {
   description = "Load balancer healthcheck"
 }
 
-variable "vm_count" {
+variable "yc_max_group_size" {
     type = number
-    description = "VM total"
+    description = "Maximum deployment size"
     default = 3 
+}
+
+
+variable "yc_min_zone_size" {
+    type = number
+    description = "Minimal vm in every availability zone"
+    default = 1 
 }
