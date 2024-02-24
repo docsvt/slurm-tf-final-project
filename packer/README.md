@@ -1,0 +1,43 @@
+# Создание целевого образа centos с установленным nginx в Yandex Cloud
+
+Образ создается развертыванием  стандартного образа centos 7 с последующим применением локальной роли ansible
+
+Сборка выполняется командным файлом packer_build.sh
+
+## Условия испольнения
+
+Должны быть установлены переменные окружения для доступа к Ynadex Cloud
+
+- YC_TOKEN=$(yc iam create-token)
+- YC_CLOUD_ID=$(yc config get cloud-id)
+
+Перед первым выполнение необходимо выполнить инициализацию packer 
+
+```shell
+packer init config.pkr.hcl
+```
+
+## Параметры 
+
+Параметры сборки передаются через переменные окружения
+
+- YC_FOLDER - имя каталога Yandex Cloud, по умолчанию default
+- YC_IMAGE_TAG - тэг создаваемого образа, по умолчанию 202402
+- YC_IMAGE_ZONE -  зона Yandex Cloud, в которой выполняется создание образа, по умолчанию ru-central1-a
+- YC_IMAGE_SUBNET - подсесть, используемая для создания образа, по умолчанию default-ru-central1-a
+
+## Запуск 
+
+```shell
+export YC_TOKEN=$(yc iam create-token)
+export YC_CLOUD_ID=$(yc config get cloud-id)
+./packer_build.sh
+
+```
+
+```shell
+YC_TOKEN=$(yc iam create-token) \
+YC_CLOUD_ID=$(yc config get cloud-id) \
+./packer_build.sh
+
+```
