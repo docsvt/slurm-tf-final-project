@@ -13,15 +13,18 @@ variable "image_subnet_id" {
 
 variable "image_zone" {
   type = string
-  default = "ru-central1-a"
+}
+
+variable "image_base_name" {
+  type = string
 }
 
 source "yandex" "this" {
   disk_type           = "network-ssd"
   folder_id           = "${var.image_folder_id}"
-  image_description   = "Slurm nginx image"
-  image_family        = "centos-nginx-server"
-  image_name          = "nginx-${var.image_tag}"
+  image_description   = "Slurm ${var.image_base_name} image"
+  image_family        = "centos-${var.image_base_name}-server"
+  image_name          = "${var.image_base_name}-${var.image_tag}"
   source_image_family = "centos-7"
   ssh_username        = "centos"
   subnet_id           = "${var.image_subnet_id}"
@@ -35,7 +38,6 @@ build {
   provisioner "ansible" {
     playbook_file = "./ansible/playbook.yml"
     ansible_env_vars = [ "ANSIBLE_ROLES_PATH=../ansible", "ANSIBLE_HOST_KEY_CHECKING=False",  "ANSIBLE_SCP_EXTRA_ARGS='-O'" ] 
-    groups           = ["desktop"]   
   }
 
 }
