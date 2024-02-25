@@ -24,13 +24,9 @@ resource "yandex_compute_instance_group" "this" {
       nat        = true
     }
 
-    # metadata = {
-    #   user-data = templatefile("config.tpl", {
-    #     VM_USER = var.vm_user
-    #     SSH_KEY = var.ssh_key
-    #   })
-    #   docker-container-declaration = file("declaration.yaml")
-    # }
+    metadata = {
+      ssh-keys = var.public_ssh_key_path != "" ? "centos:${file(var.public_ssh_key_path)}" : "centos:${tls_private_key.this[0].public_key_openssh}"
+    }
   }
 
   scale_policy {
