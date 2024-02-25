@@ -11,6 +11,10 @@
  - vm_resources - ресурсные параметры ВМ: cores, memory, disk
  - yc_max_group_size - максимальный размер группы
 
+# Ограничения
+
+ 1. Для VM используется предустановленный в packer пользователь centos
+ 2. VM создаются NAT для сетевого интерфейса
 
 ## Условия выполнения
 
@@ -54,6 +58,12 @@ terraform apply --auto-approve --var image_tag=20240225
 ```bash
 YC_TOKEN=$(yc iam create-token) \
 YC_CLOUD_ID=$(yc config get cloud-id) \
-terraform apply --auto-approve --var image_tag=20240225 --var image-base-name=nginx
+terraform apply --var image_tag=20240225 --var image_base_name=nginx
 
 ```
+
+# Вывод
+
+ - external_alb_ip - внешний адрес балансировщика
+ - vm_external_ip  - внешние адрес развертываемых VM
+ - vm_ssh_key  - приватный SSH ключ для развертываемых VM
