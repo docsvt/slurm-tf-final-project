@@ -1,7 +1,7 @@
 variable "yc_resource_folder" {
-  type = string
+  type        = string
   description = "Resource manager folder for instance group"
-  default = "default"
+  default     = "default"
 }
 
 variable "yc_image_id" {
@@ -9,10 +9,10 @@ variable "yc_image_id" {
   description = "Yandex cloud image id"
 }
 
-variable "vm_image_name" {
+variable "image_base_name" {
   type        = string
   description = "Name used image"
-  default  = "nginx"
+  default     = "nginx"
 }
 
 variable "image_tag" {
@@ -33,6 +33,11 @@ variable "labels" {
 variable "yc_zones" {
   type        = list(string)
   description = "Yandex cloud zone mapping"
+  default = [
+    "ru-central1-a",
+    "ru-central1-b",
+    "ru-central1-d"
+  ]
 }
 
 variable "public_ssh_key_path" {
@@ -47,7 +52,7 @@ variable "private_ssh_key_path" {
   default     = ""
 }
 
-variable "nlb_healthcheck" {
+variable "alb_healthcheck" {
   type = object(
     {
       name = string
@@ -57,17 +62,37 @@ variable "nlb_healthcheck" {
   )
 
   description = "Load balancer healthcheck"
+  default = {
+    name = "test"
+    port = 80
+    path = "/"
+  }
 }
 
 variable "yc_max_group_size" {
-    type = number
-    description = "Maximum deployment size"
-    default = 3 
+  type        = number
+  description = "Maximum deployment size"
+  default     = 3
 }
 
 
 variable "yc_min_zone_size" {
-    type = number
-    description = "Minimal vm in every availability zone"
-    default = 1 
+  type        = number
+  description = "Minimal vm in every availability zone"
+  default     = 1
+}
+
+
+variable "vm_resources" {
+  type = object({
+    cores = number,
+    memory = number,
+    disk = number
+  })
+  description = "VM resources"
+  default = {
+    cores = 2,
+    memory = 4,
+    disk = 10
+  }
 }

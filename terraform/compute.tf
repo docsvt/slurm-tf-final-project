@@ -6,15 +6,15 @@ resource "yandex_compute_instance_group" "this" {
 
     platform_id = "standard-v3"
     resources {
-      memory = 2
-      cores  = 2
+      memory = var.vm_resources.memory
+      cores  = var.vm_resources.cores
     }
 
     boot_disk {
       mode = "READ_WRITE"
       initialize_params {
-        image_id = var.yc_image_id
-        size     = 30
+        image_id = data.yandex_compute_image.this.id
+        size     = var.vm_resources.disk
       }
     }
 
