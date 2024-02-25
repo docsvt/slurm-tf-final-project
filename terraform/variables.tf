@@ -4,11 +4,6 @@ variable "yc_resource_folder" {
   default     = "default"
 }
 
-variable "yc_image_id" {
-  type        = string
-  description = "Yandex cloud image id"
-}
-
 variable "image_base_name" {
   type        = string
   description = "Name used image"
@@ -23,11 +18,18 @@ variable "image_tag" {
 variable "cidr_blocks" {
   type        = list(list(string))
   description = "List of IPv4 cidr blocks for subnet"
+  default = [
+    ["10.10.0.0/24"],
+    ["10.20.0.0/24"],
+    ["10.30.0.0/24"],
+  ]
+
 }
 
 variable "labels" {
   type        = map(string)
   description = "Labels to add to resources"
+  default     = {}
 }
 
 variable "yc_zones" {
@@ -85,14 +87,14 @@ variable "yc_min_zone_size" {
 
 variable "vm_resources" {
   type = object({
-    cores = number,
+    cores  = number,
     memory = number,
-    disk = number
+    disk   = number
   })
   description = "VM resources"
   default = {
-    cores = 2,
+    cores  = 2,
     memory = 4,
-    disk = 10
+    disk   = 10
   }
 }
