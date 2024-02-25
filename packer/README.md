@@ -27,18 +27,26 @@ packer init config.pkr.hcl
 - YC_IMAGE_ZONE -  зона Yandex Cloud, в которой выполняется создание образа, по умолчанию ru-central1-a
 - YC_IMAGE_SUBNET - подсесть, используемая для создания образа, по умолчанию default-ru-central1-a
 
+или через параметры вызова packer_build.sh
+
+- --image-base-name - базовое имя образа, по умолчанию nginx
+- --image-tag - тэг создаваемого образа, по умолчанию 202402
+- --folder - имя каталога Yandex Cloud, по умолчанию default
+- --subnet - подсесть, используемая для создания образа, по умолчанию default-ru-central1-a
+- --zone - зона Yandex Cloud, в которой выполняется создание образа, по умолчанию ru-central1-a
+
 ## Запуск 
 
-```shell
+```bash
 export YC_TOKEN=$(yc iam create-token)
 export YC_CLOUD_ID=$(yc config get cloud-id)
 ./packer_build.sh
 
 ```
 
-```shell
+```bash
 YC_TOKEN=$(yc iam create-token) \
 YC_CLOUD_ID=$(yc config get cloud-id) \
-./packer_build.sh
+./packer_build.sh --image-base-name nginx --image-tag 20240225
 
 ```
