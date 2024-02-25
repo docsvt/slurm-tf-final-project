@@ -5,11 +5,12 @@ resource "tls_private_key" "this" {
   rsa_bits  = 4096
 }
 
-resource "local_file" "yc_pem" {
-  count    = var.private_ssh_key_path != "" ? 0 : 1
-  filename = "${path.module}/cloudtls.pem"
-  content  = tls_private_key.this[0].private_key_pem
-  provisioner "local-exec" {
-    command = "chmod 600 ${path.module}/cloudtls.pem"
-  }
-}
+# Resource for extract ssh private key to file
+# resource "local_file" "yc_pem" {
+#   count    = var.private_ssh_key_path != "" ? 0 : 1
+#   filename = "${path.module}/.tmp/cloudtls.pem"
+#   content  = tls_private_key.this[0].private_key_pem
+#   provisioner "local-exec" {
+#     command = "chmod 600 ${path.module}/.tmp/cloudtls.pem"
+#   }
+# }
